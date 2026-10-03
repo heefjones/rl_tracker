@@ -185,6 +185,13 @@ function ratingCell(acc, col) {
     const div = pl.division && pl.tier !== 'Unranked' ? ` · ${pl.division.replace('Division ', 'Div ')}` : '';
     cell.append(el('span', 'rank', shortTier(pl.tier) + div));
   }
+  if (col.group === 'comp' && Number.isFinite(pl.percentile) &&
+      pl.percentile >= 0 && pl.percentile <= 100) {
+    const pct = pl.percentile >= 50
+      ? `Top ${(100 - pl.percentile).toFixed(1)}%`
+      : `Bottom ${pl.percentile.toFixed(1)}%`;
+    cell.append(el('span', 'pct', pct));
+  }
   cell.title = [
     pl.name,
     pl.tier && !col.plain && `${pl.tier}${pl.division && pl.tier !== 'Unranked' ? ` ${pl.division}` : ''}`,
@@ -422,6 +429,12 @@ async function addAccount(name) {
 }
 
 // ---------- Init ----------
+window.tracker.getVersion().then((version) => {
+  $('appVersion').textContent = `v${version}`;
+}).catch((error) => {
+  console.error('Unable to read app version:', error);
+  toast('Unable to read app version.');
+});
 $('tbody').addEventListener('dragstart', (e) => e.preventDefault());
 $('addBtn').onclick = openModal;
 $('cancelBtn').onclick = closeModal;
@@ -438,12 +451,6 @@ $('addForm').addEventListener('submit', (e) => {
 });
 
 (async () => {
-  try {
-    $('appVersion').textContent = `v${await window.tracker.getVersion()}`;
-  } catch (error) {
-    console.error('Unable to read application version:', error);
-    toast('Unable to read application version.');
-  }
   renderHead();
   accounts = (await window.tracker.loadAccounts()) || [];
   render();

@@ -5,6 +5,9 @@ from Rocket League Tracker. Internet access is required to refresh ratings.
 
 ## Install and use
 
+The version beside **MMR Tracker** comes from the running app's package metadata.
+It identifies the installed build, not the latest version available on GitHub.
+
 Download `RL-Tracker-Setup-1.0.2.exe` and run it. The setup wizard lets you choose
 an installation folder. For a non-administrator installation, choose a folder
 your Windows user can write to. On the final page, leave **Run RL Tracker**
@@ -12,6 +15,11 @@ checked to open it, or launch it later from the desktop or Start menu.
 Add your own Epic Games usernames. Use the main Refresh
 button to update all accounts, drag rows to reorder them, click a mode header
 to sort, and use the X on a row to remove an account.
+
+Competitive cells show Tracker's rating percentile below the rank whenever
+available, for every competitive playlist (including Hoops and extra modes).
+Percentiles use Tracker's Top/Bottom percentage convention. Missing percentile
+data is left blank; refresh later as season data becomes available.
 
 Accounts are saved locally in `%APPDATA%\RL Tracker\accounts.json`.
 Uninstalling leaves saved accounts intact.
@@ -39,28 +47,6 @@ The shareable installer is written to `dist\RL-Tracker-Setup-1.0.2.exe`.
 GitHub Releases is a convenient hosting option:
 
 1. Create a GitHub repository for the project.
-2. Create a published, non-prerelease release with a matching tag such as `v1.0.2`.
-3. Attach the setup EXE, its `.exe.blockmap`, and `latest.yml` from `dist`.
+2. Create a release with a version tag such as `v1.0.2`.
+3. Attach the setup EXE from `dist` as a release asset.
 4. Share the release page URL.
-
-## Automatic updates
-
-Starting with version 1.0.2, installed Windows builds check the public
-`heefjones/rl_tracker` GitHub Releases on startup and hourly. New stable versions
-download in the background. The app asks before restarting to install;
-choosing Later does not install on exit. It will offer the downloaded update
-again after the next launch. Update failures are reported without preventing
-normal account tracking. Development runs do not check for updates.
-
-The version next to MMR Tracker comes from Electron's `app.getVersion()`, so
-it identifies the running build, not the latest published release.
-
-Users on 1.0.0 or 1.0.1 must manually install 1.0.2 once to gain automatic updates.
-For every release, increment the package version and rebuild. Upload the EXE,
-matching blockmap, and generated `latest.yml` together, without renaming or
-editing them. The metadata contains the version, size, and checksum used to
-verify downloads. Users only need the EXE for manual installation.
-
-Build commands do not publish anything. After a new release is built and
-verified, older local setup EXEs and matching blockmaps can be deleted;
-published GitHub assets remain untouched.
