@@ -1,17 +1,21 @@
 {
     "name": "rl-mmr-tracker",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Desktop app to track Rocket League MMR across multiple Epic accounts",
     "main": "main.js",
     "scripts": {
         "start": "electron .",
-        "dist": "electron-builder --win nsis --x64",
-        "dist:dir": "electron-builder --win dir --x64"
+        "dist": "electron-builder --win nsis --x64 --publish never",
+        "dist:dir": "electron-builder --win dir --x64 --publish never",
+        "test": "node --test"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "type": "commonjs",
+    "dependencies": {
+        "electron-updater": "^6.6.2"
+    },
     "devDependencies": {
         "electron": "^44.5.1",
         "electron-builder": "^26.15.3"
@@ -21,6 +25,7 @@
         "productName": "RL Tracker",
         "files": [
             "main.js",
+            "updates.js",
             "preload.js",
             "renderer/**/*"
         ],
@@ -28,14 +33,19 @@
             "target": "nsis",
             "artifactName": "RL-Tracker-Setup-${version}.${ext}"
         },
+        "publish": {
+            "provider": "github",
+            "owner": "heefjones",
+            "repo": "rl_tracker"
+        },
         "nsis": {
-            "oneClick":  false,
+            "oneClick": false,
             "perMachine": false,
-            "allowToChangeInstallationDirectory":  true,
+            "allowToChangeInstallationDirectory": true,
             "createDesktopShortcut": "always",
             "createStartMenuShortcut": true,
             "shortcutName": "RL Tracker",
-            "runAfterFinish":  true,
+            "runAfterFinish": true,
             "deleteAppDataOnUninstall": false
         },
         "directories": {

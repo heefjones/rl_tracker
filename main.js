@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, session, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const { startUpdates } = require('./updates');
 
 const SITE_URL = 'https://rocketleague.tracker.network/';
 const API_BASE = 'https://api.tracker.gg/api/v2/rocket-league/standard';
@@ -170,6 +171,7 @@ function createMainWindow() {
 }
 
 ipcMain.handle('accounts:load', () => loadAccounts());
+ipcMain.handle('app:version', () => app.getVersion());
 ipcMain.handle('accounts:save', (_e, accounts) => {
   saveAccounts(accounts);
   return true;
@@ -185,6 +187,10 @@ ipcMain.handle('tracker:lookup', async (_e, name) => {
 app.whenReady().then(() => {
   createMainWindow();
   ensureScraper();
+  if (app.isPackaged) {
+    const { autoUpdater } = require('electron-updater');
+    startUpdates({ app, autoUpdater, dialog: require('electron').dialog });
+  }
 });
 
 app.on('before-quit', () => {

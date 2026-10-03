@@ -438,6 +438,12 @@ $('addForm').addEventListener('submit', (e) => {
 });
 
 (async () => {
+  try {
+    $('appVersion').textContent = `v${await window.tracker.getVersion()}`;
+  } catch (error) {
+    console.error('Unable to read application version:', error);
+    toast('Unable to read application version.');
+  }
   renderHead();
   accounts = (await window.tracker.loadAccounts()) || [];
   render();
