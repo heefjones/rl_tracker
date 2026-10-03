@@ -1,0 +1,13 @@
+# Installed dependencies
+node_modules/
+
+# Generated installers and packaged apps
+/dist/
+
+# Local credentials (keep example configuration shareable)
+.env
+.env.*
+!.env.example
+
+# Personal account data, if copied into the project
+/accounts.json

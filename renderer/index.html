@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' https: data:; style-src 'self'; script-src 'self'" />
+  <title>RL Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">RL</div>
+      <div>
+        <h1>MMR Tracker</h1>
+        <p class="subtitle">Rocket League ratings via <a href="https://rocketleague.tracker.network/" target="_blank">tracker.network</a></p>
+      </div>
+    </div>
+    <div class="actions">
+      <span id="updatedLabel" class="updated-label"></span>
+      <button id="refreshAllBtn" class="btn btn-ghost" title="Refresh all accounts">⟳ Refresh</button>
+      <button id="addBtn" class="btn btn-green">＋ Add Account</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="table-card" id="tableCard">
+      <table id="mmrTable">
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div id="emptyState" class="empty">
+        <div class="empty-icon">🚗</div>
+        <p>No accounts yet</p>
+        <span>Click <strong>Add Account</strong> to start tracking an Epic Games account.</span>
+      </div>
+    </div>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <form id="addForm" class="modal-card" autocomplete="off">
+      <h2>Add Account</h2>
+      <label for="nameInput">Epic Games username</label>
+      <input id="nameInput" type="text" placeholder="e.g. jstn." spellcheck="false" />
+      <div id="formMsg" class="form-msg"></div>
+      <div id="suggestions" class="suggestions"></div>
+      <div class="modal-actions">
+        <button type="button" id="cancelBtn" class="btn btn-ghost">Cancel</button>
+        <button type="submit" id="submitBtn" class="btn btn-green">Add</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+    "name":  "rl-mmr-tracker",
+    "version":  "1.0.0",
+    "description":  "Desktop app to track Rocket League MMR across multiple Epic accounts",
+    "main":  "main.js",
+    "scripts":  {
+                    "start":  "electron .",
+                    "dist":  "electron-builder --win nsis --x64",
+                    "dist:dir":  "electron-builder --win dir --x64"
+                },
+    "keywords":  [
+
+                 ],
+    "author":  "",
+    "license":  "ISC",
+    "type":  "commonjs",
+    "devDependencies":  {
+                            "electron":  "^44.5.1",
+                            "electron-builder":  "^26.15.3"
+                        },
+    "build":  {
+                  "appId":  "com.rlmmrtracker.app",
+                  "productName":  "RL Tracker",
+                  "files":  [
+                                "main.js",
+                                "preload.js",
+                                "renderer/**/*"
+                            ],
+                  "win":  {
+                              "target":  "nsis",
+                              "artifactName":  "RL-Tracker-Setup-${version}.${ext}"
+                          },
+                  "nsis":  {
+                               "oneClick":  true,
+                               "perMachine":  false,
+                               "createDesktopShortcut":  "always",
+                               "createStartMenuShortcut":  true,
+                               "shortcutName":  "RL Tracker",
+                               "runAfterFinish":  false,
+                               "deleteAppDataOnUninstall":  false
+                           },
+                  "directories":  {
+                                      "output":  "dist"
+                                  }
+              }
+}
